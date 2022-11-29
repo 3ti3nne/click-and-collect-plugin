@@ -32,15 +32,18 @@ if (!class_exists('ClickAndCollect')) {
 
         public function instanciate()
         {
+
+
             include_once(CC_PLUGIN_PATH . '/controllers/utilities.php');
 
-            add_action('wp_enqueue_scripts', 'custom_css_file', 50);
+            add_action('wp_enqueue_scripts', 'custom_script');
 
-            function custom_css_file()
+            function custom_script()
             {
-                wp_register_style('customStyle', '/wp-content/plugins/click-and-collect-plugin/css/customStyle.css');
-                wp_enqueue_style('customStyle');
-            };
+
+                wp_enqueue_script('jquery-ui-datepicker');
+                wp_enqueue_script('custom_script', '/wp-content/plugins/click-and-collect-plugin/js/customDatePicker.js', array('jquery'));
+            }
         }
     }
 

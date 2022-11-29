@@ -1,5 +1,7 @@
 <?php
 
+
+require('C:/xampp/htdocs/wordpress/wp-load.php');
 //Add a menu page, hook on admin_menu
 add_action('admin_menu', 'click_and_collect_settings_menu');
 //Add the content of the form to the db
@@ -61,7 +63,7 @@ function options_page_click_and_collect()
                 ?>
                     <div>
                         <label for="<?= $day ?>"><?= ucfirst($day) ?></label>
-                        <input id="<?= $day ?>" type="checkbox" name="click_and_collect_day_off[<?= $day ?>]" value="<?= $day ?>" />
+                        <input id="<?= $day ?>" type="checkbox" name="click_and_collect_day_off[]" value="<?= $day ?>" />
                     </div>
                 <?php
                 }
@@ -102,13 +104,18 @@ function options_page_click_and_collect()
 
                 <?php
                 $daysOff = (get_option('click_and_collect_day_off'));
+                $daysOffAjax = [];
                 foreach ($daysOff as $day => $value) {
+                    $daysOffAjax += [$day => $value];
+
                 ?>
                     <li><?= ucfirst($value) ?></li>
 
             <?php
                 }
             }
+            print_r($daysOffAjax);
+            echo json_encode($daysOffAjax);
             ?>
 
             </ul>
