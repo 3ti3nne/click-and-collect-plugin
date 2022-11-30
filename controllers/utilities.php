@@ -112,12 +112,17 @@ function options_page_click_and_collect()
 
                 <?php
                 $daysOff = (get_option('click_and_collect_day_off'));
+
                 foreach ($daysOff as $key => $value) {
+                    foreach ($daysArray as $num => $day) {
+                        if ((int)$value === $num) {
 
                 ?>
-                    <li><?= ucfirst($value) ?></li>
+                            <li><?= ucfirst($day) ?></li>
 
             <?php
+                        }
+                    }
                 }
             }
 
@@ -182,10 +187,25 @@ function custom_checkout_field($checkout)
         <div id="click_and_collect_day_off">
             <h2>Selectionnez un jour pour votre commande. </h2>
             <p>Nous sommes fermés les <?php
+
                                         $daysOff = (get_option('click_and_collect_day_off'));
 
-                                        foreach ($daysOff as $day => $value) {
-                                            echo  ucfirst($value . " ");
+                                        $daysArray = [
+                                            1 => 'lundi',
+                                            2 => 'mardi',
+                                            3 => 'mercredi',
+                                            4 => 'jeudi',
+                                            5 => 'vendredi',
+                                            6 => 'samedi',
+                                            0 => 'dimanche'
+                                        ];
+
+                                        foreach ($daysOff as $key => $value) {
+                                            foreach ($daysArray as $num => $day) {
+                                                if ((int)$value === $num)
+
+                                                    echo  ucfirst($day . " ");
+                                            }
                                         }
                                         ?> </p>
 
@@ -296,7 +316,7 @@ function custom_checkout_field($checkout)
             ?>
                 <tr>
                     <th scope="row">Jour du retrait</th>
-                    <td><?= wp_date('l d, F Y', strtotime($day)) ?></td>
+                    <td><?= $day ?></td>
                 </tr>
             <?php
 

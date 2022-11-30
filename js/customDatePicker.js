@@ -1,39 +1,16 @@
 (function ($) {
-  console.log(php_vars);
+  //Disabling dates
+  //beforeShowDay pass through days, get the num associated with .getDay() (i.e Sunday = 0, Monday = 1 etc)
+  //we tune in a function to compare with our days from db, return an array [false] to disable day.
 
   $("#datepicker").datepicker({
-    dateFormat: "yy-mm-dd",
-    beforeShowDay: $.datepicker.noWeekends,
+    minDate: +1,
+    beforeShowDay: function (date) {
+      if (date.getDay() == php_vars[0] || date.getDay() == php_vars[1]) {
+        return [false, "closed"];
+      } else {
+        return [true];
+      }
+    },
   });
 })(jQuery);
-
-/* jQuery(function($) {
-  let disabledDates = [];
-  $("form").submit(function(e) {
-    dateValue = document.getElementById('disableDate').value
-    disabledDates.push(dateValue)
-    $("#customerCalendar").datetimepicker("refresh")
-    return false
-  });
-	$("#disableDays input").change(function(){
-   $("#customerCalendar").datetimepicker("refresh")
-  })
-  $("#disableDate").datepicker({
-    dateFormat: 'yy-mm-dd',
-    minDate: +1
-  });
-
-  $("#customerCalendar").datetimepicker({
-    beforeShowDay: function(date) {
-      let dateString = jQuery.datepicker.formatDate('yy-mm-dd', date);
-      let disabledDays = $("#disableDays input").map(function(){return this.checked}).get(); // array of booleans
-      if ( disabledDays[date.getDay()])
-      	return [false];
-      return [disabledDates.indexOf(dateString) == -1]
-    },
-    timeFormat: 'HH',
-    minDate: +1
-  });
-
-});
- */
