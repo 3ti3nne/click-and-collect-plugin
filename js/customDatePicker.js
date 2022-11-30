@@ -1,48 +1,39 @@
-jQuery(document).ready(function () {
-  jQuery.ajax({
-    url: "wp-content/plugins/click-and-collect-plugin/controllers/utilities.php",
-    method: "GET",
-    dataType: "json",
-  });
-});
+(function ($) {
+  console.log(php_vars);
 
-/* function getDays([days]) {
-  days.forEach((day) => {
-    let d = new Date(),
-      year = d.getYear(),
-      daysArray = [];
-
-    d.setDate(1);
-
-    // Get the first Monday in the month
-    while (d.getDay() !== 1) {
-      d.setDate(d.getDate() + 1);
-    }
-    console.log(d);
-
-    // Get all the other Mondays in the month
-    while (d.getYear() === year) {
-      let pushDate = new Date(d.getTime());
-      daysArray.push(
-        pushDate.getDate() +
-          "-" +
-          (pushDate.getMonth() + 1) +
-          "-" +
-          pushDate.getFullYear()
-      );
-      d.setDate(d.getDate() + 7);
-    }
-  });
-  console.log(daysArray);
-}
-jQuery(function ($) {
   $("#datepicker").datepicker({
-    beforeShowDay: function (date) {
-      var day = date.getDay();
-      if (date.day() === "Monday") {
-        console.log(day);
-      }
-    },
+    dateFormat: "yy-mm-dd",
+    beforeShowDay: $.datepicker.noWeekends,
   });
+})(jQuery);
+
+/* jQuery(function($) {
+  let disabledDates = [];
+  $("form").submit(function(e) {
+    dateValue = document.getElementById('disableDate').value
+    disabledDates.push(dateValue)
+    $("#customerCalendar").datetimepicker("refresh")
+    return false
+  });
+	$("#disableDays input").change(function(){
+   $("#customerCalendar").datetimepicker("refresh")
+  })
+  $("#disableDate").datepicker({
+    dateFormat: 'yy-mm-dd',
+    minDate: +1
+  });
+
+  $("#customerCalendar").datetimepicker({
+    beforeShowDay: function(date) {
+      let dateString = jQuery.datepicker.formatDate('yy-mm-dd', date);
+      let disabledDays = $("#disableDays input").map(function(){return this.checked}).get(); // array of booleans
+      if ( disabledDays[date.getDay()])
+      	return [false];
+      return [disabledDates.indexOf(dateString) == -1]
+    },
+    timeFormat: 'HH',
+    minDate: +1
+  });
+
 });
  */

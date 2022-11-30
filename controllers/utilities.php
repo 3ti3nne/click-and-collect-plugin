@@ -54,16 +54,24 @@ function options_page_click_and_collect()
             settings_fields('ccplugin');
             do_settings_sections(' click-and-collect-settings-page ');
 
-            $daysArray = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+            $daysArray = [
+                1 => 'lundi',
+                2 => 'mardi',
+                3 => 'mercredi',
+                4 => 'jeudi',
+                5 => 'vendredi',
+                6 => 'samedi',
+                0 => 'dimanche'
+            ];
             $times = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
             ?>
             <fieldset>
                 <h2>Jour(s) de fermeture</h2>
-                <?php foreach ($daysArray as $day) {
+                <?php foreach ($daysArray as $key => $day) {
                 ?>
                     <div>
                         <label for="<?= $day ?>"><?= ucfirst($day) ?></label>
-                        <input id="<?= $day ?>" type="checkbox" name="click_and_collect_day_off[]" value="<?= $day ?>" />
+                        <input id="<?= $day ?>" type="checkbox" name="click_and_collect_day_off[]" value="<?= $key ?>" />
                     </div>
                 <?php
                 }
@@ -104,9 +112,7 @@ function options_page_click_and_collect()
 
                 <?php
                 $daysOff = (get_option('click_and_collect_day_off'));
-                $daysOffAjax = [];
-                foreach ($daysOff as $day => $value) {
-                    $daysOffAjax += [$day => $value];
+                foreach ($daysOff as $key => $value) {
 
                 ?>
                     <li><?= ucfirst($value) ?></li>
@@ -114,13 +120,17 @@ function options_page_click_and_collect()
             <?php
                 }
             }
-            print_r($daysOffAjax);
-            echo json_encode($daysOffAjax);
+
+
             ?>
 
             </ul>
 
             <?php
+
+
+
+
             if (!empty(get_option('click_and_collect_opens_at'))) {
             ?>
                 <h2>Les horaires sont</h2>
@@ -188,7 +198,8 @@ function custom_checkout_field($checkout)
             woocommerce_form_field(
                 'click_and_collect_day',
                 array(
-                    'type' => 'date',
+                    'type' => 'text',
+                    'id' => 'datepicker',
                     'class' => array('click_and_collect_day', 'form-row-wide'),
                     'label' => __('Jour du retrait'),
                     'placeholder' => __('Jour du retrait'),
