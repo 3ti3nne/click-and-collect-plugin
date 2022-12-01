@@ -34,6 +34,7 @@ if (!class_exists('ClickAndCollect')) {
         {
 
             include_once(CC_PLUGIN_PATH . '/controllers/utilities.php');
+            include_once(CC_PLUGIN_PATH . '/admin/admin-page.php');
 
             function custom_script()
             {
