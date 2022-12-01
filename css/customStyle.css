@@ -156,3 +156,10 @@
   > tr:first-child {
   display: none;
 }
+
+#click_and_collect_time:only-child {
+  background-color: white;
+  padding: 0.9rem 1.1rem;
+  border: solid 1px black;
+  font-size: medium;
+}
