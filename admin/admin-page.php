@@ -3,7 +3,7 @@
 require('C:/xampp/htdocs/wordpress/wp-load.php');
 //Add a menu page, hook on admin_menu
 add_action('admin_menu', 'click_and_collect_settings_menu');
-//Add the content of the form to the db
+
 add_action('admin_init', 'click_and_collect_settings');
 
 
